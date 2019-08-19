@@ -1,0 +1,54 @@
+# Version of docker-compose
+version: '3'
+
+# Containers we are going to run
+services:
+  # Our Phoenix container
+  web:
+    # The build parameters for this container.
+    build: .
+    command: mix phx.server
+    environment:
+      # Variables to connect to our Postgres server
+      PGUSER: "${pguser}"
+      PGPASSWORD: "${pgpassword}"
+      PGDATABASE:  "${pgdatabase}"
+      PGPORT:  "${pgport}"
+      # Hostname of our Postgres container
+      PGHOST: db
+    ports:
+      # Mapping the port to make the Phoenix app accessible outside of the container
+      - "4000:4000"
+    volumes:
+      - .:/workspace
+    depends_on:
+      # The db container needs to be started before we start this container
+      - db
+  db:
+    # We use the predefined Postgres image
+    image: postgres:11.5
+    environment:
+      # Set user/password for Postgres
+      POSTGRES_USER: "${pguser}"
+      POSTGRES_PASSWORD: "${pgpassword}"
+      # Set a path where Postgres should store the data
+      PGDATA: "${pgdatapath}/data"
+    ports:
+      - "25432:5432"
+    restart: always
+    volumes:
+      - "pgdata:${pgdatapath}"
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin4@pgadmin.org
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - "5050:80"
+
+volumes:
+  pgdata:
+  pgadmin:
+  dependencies:
