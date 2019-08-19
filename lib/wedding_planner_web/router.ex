@@ -16,6 +16,7 @@ defmodule WeddingPlannerWeb.Router do
   scope "/", WeddingPlannerWeb do
     pipe_through :browser
 
+    resources "/client_identities", IdentityController
     get "/", PageController, :index
   end
 

@@ -1,0 +1,34 @@
+<h1>Listing Client identities</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Phone</th>
+      <th>Address</th>
+      <th>Webpage</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for identity <- @client_identities do %>
+    <tr>
+      <td><%= identity.name %></td>
+      <td><%= identity.title %></td>
+      <td><%= identity.phone %></td>
+      <td><%= identity.address %></td>
+      <td><%= identity.webpage %></td>
+
+      <td>
+        <%= link "Show", to: Routes.identity_path(@conn, :show, identity) %>
+        <%= link "Edit", to: Routes.identity_path(@conn, :edit, identity) %>
+        <%= link "Delete", to: Routes.identity_path(@conn, :delete, identity), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Identity", to: Routes.identity_path(@conn, :new) %></span>

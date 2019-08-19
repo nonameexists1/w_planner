@@ -1,0 +1,33 @@
+<h1>Show Identity</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @identity.name %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @identity.title %>
+  </li>
+
+  <li>
+    <strong>Phone:</strong>
+    <%= @identity.phone %>
+  </li>
+
+  <li>
+    <strong>Address:</strong>
+    <%= @identity.address %>
+  </li>
+
+  <li>
+    <strong>Webpage:</strong>
+    <%= @identity.webpage %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.identity_path(@conn, :edit, @identity) %></span>
+<span><%= link "Back", to: Routes.identity_path(@conn, :index) %></span>
