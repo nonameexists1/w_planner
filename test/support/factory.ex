@@ -11,6 +11,12 @@ defmodule WeddingPlanner.Factory do
     }
   end
 
+  def build(:city) do
+    %WeddingPlanner.Location.City{
+      name: "Vilnius"
+    }
+  end
+
   def build(factory_name, attributes) do
     factory_name |> build() |> struct(attributes)
   end
